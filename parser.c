@@ -66,6 +66,7 @@ static myparser_st_entry_t* myparser_find_entry(myparser_t* self, char *name) {
 static myparser_st_entry_t* myparser_add_entry(myparser_t* self, char* name, myparser_node_t* node) {
 	int i = self->st_index;
 	self->st[i].name = name;
+	//printf("name=%s\n", name);
 	self->st[i].node = node;
 	return &self->st[self->st_index++];
 }
@@ -98,7 +99,7 @@ static char* myparser_id(myparser_t* self) { // identificator
 		 *pret++ = *p++;
 	}
 
-	pret = '\0';
+	*pret = '\0';
 	return ret;	
 }
 
@@ -230,8 +231,6 @@ myparser_node_t* myparser_parse_grammar(myparser_t* self, const char * grammar) 
 
 	while(*self->cur != '\0') {
 		char* record = myparser_id(self);
-//		printf("%s\n", record);
-		
 		myparser_st_entry_t* root_entry = myparser_find_entry(self, record);
 
 		if (!root_entry) {
@@ -309,7 +308,7 @@ bool myparser_visit(myparser_t* self, myparser_node_t* node) {
 		//*/
 
 		case LETTER : {
-			//printf("visit LETTER: %c\n", *cur);
+			//printf("visit LETTER: %c\n", *self->cur);
 			if ( (*self->cur >= 'a' && *self->cur <= 'z') || (*self->cur >= 'A' && *self->cur <= 'Z') ) {
 				printf("LETTER: %c\n", *self->cur);
 				++self->cur;

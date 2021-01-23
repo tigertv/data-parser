@@ -1,0 +1,5 @@
+record = '{' ''' %0 ''' ';' two_param ';' two_param '}' ;
+%0 = {char} ;
+char = letter | ' ' | digit ;
+two_param = '[' %1 '&' %1 ']' ;
+%1 = {digit} ;
